@@ -31,7 +31,7 @@ public class Equipment
     {
         if (Availability)
         {
-            this.changeStatus();
+            changeStatus();
         }
         else
         {
@@ -43,7 +43,7 @@ public class Equipment
     {
         if (!Availability)
         {
-            this.changeStatus();
+            changeStatus();
         }
         else
         {
