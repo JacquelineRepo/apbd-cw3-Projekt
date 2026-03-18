@@ -1,5 +1,8 @@
 ﻿Przygotuj aplikację konsolową w C#, która obsługuje uczelnianą wypożyczalnię sprzętu. System ma
-pozwalać na rejestrowanie sprzętu, wypożyczanie go użytkownikom, zwroty, kontrolę dostępności
+pozwalać na rejestrowanie sprzętu,
+wypożyczanie go użytkownikom,
+zwroty,
+kontrolę dostępności
 oraz generowanie podstawowych raportów.
 
 W systemie występują różne typy sprzętu, a każda kategoria ma część cech wspólnych i część cech
