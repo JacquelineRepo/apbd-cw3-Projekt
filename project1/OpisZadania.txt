@@ -60,3 +60,43 @@ bardziej obiektowo".
 • W miejscach, w których to ma sens, użyj interfejsu lub klasy abstrakcyjnej.
 • Jeżeli operacja może się nie powieść, obsłuż to w sposób jawny - wyjątek, wynik operacji albo
 inny czytelny mechanizm.
+ Jeżeli jakaś reguła biznesowa może się zmieniać, to nie zaszywaj jej w pięciu
+miejscach. Lepiej mieć jedną klasę albo jeden obszar odpowiedzialny za dany typ decyzji niż
+rozproszoną logikę po całym projekcie.
+
+Wymagania dotyczące repozytorium GitHub
+• Rozwiązanie umieść we własnym repozytorium GitHub.
+• Repozytorium ma zawierać czytelną historię pracy - minimum 8 sensownych commitów.
+• Wykorzystaj co najmniej 2 gałęzie robocze i połącz je z `main` po zakończeniu prac.
+• W repozytorium powinien znaleźć się plik `README.md` z opisem projektu i krótkim
+uzasadnieniem decyzji projektowych.
+• W README wskaż, gdzie w projekcie widać próbę zadbania o kohezję, coupling i
+odpowiedzialności klas.
+• W README krótko uzasadnij, dlaczego wybrałeś taki podział klas, plików i ewentualnych warstw
+projektu.
+Nie chodzi o to, żeby w README przepisać definicję SOLID z internetu. Chodzi o krótki,
+konkretny opis własnego rozwiązania: jak podzieliłeś kod i dlaczego taki podział uznałeś za
+sensowny
+
+Scenariusz demonstracyjny
+W metodzie `Main` albo w przygotowanym menu konsolowym pokaż co najmniej następujący
+scenariusz:
+11. Dodanie kilku egzemplarzy sprzętu różnych typów.
+12. Dodanie kilku użytkowników różnych typów.
+13. Poprawne wypożyczenie sprzętu.
+14. Próbę wykonania niepoprawnej operacji, np. wypożyczenia sprzętu niedostępnego albo
+przekroczenia limitu.
+15. Zwrot sprzętu w terminie.
+16. Zwrot opóźniony skutkujący naliczeniem kary.
+17. Wyświetlenie raportu końcowego o stanie systemu.
+
+Dla chętnych
+• Dodaj pełne menu tekstowe pozwalające wykonywać operacje interaktywnie.
+• Dodaj zapis i odczyt danych do pliku JSON.
+• Dodaj prosty mechanizm filtrowania raportów, np. tylko sprzęt dostępny albo tylko
+przeterminowane wypożyczenia.
+
+Oddanie
+• Link do repozytorium GitHub.
+• Instrukcja uruchomienia w README.
+• Krótki opis decyzji projektowych w README.
