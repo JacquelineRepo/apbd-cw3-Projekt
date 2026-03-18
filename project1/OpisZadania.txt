@@ -6,3 +6,57 @@ W systemie występują różne typy sprzętu, a każda kategoria ma część cec
 specyficznych. To jest dobry moment, żeby zastanowić się, co powinno być wspólne, co powinno być
 wyspecjalizowane i gdzie rzeczywiście opłaca się użyć dziedziczenia, a gdzie lepsza będzie
 kompozycja albo osobna klasa serwisowa.
+
+Model domeny - minimalny zakres
+W rozwiązaniu powinny pojawić się co najmniej następujące elementy domenowe:
+• Sprzęt - część wspólna dla wszystkich typów urządzeń.
+• Co najmniej trzy typy sprzętu, np. `Laptop`, `Projector`, `Camera`.
+• Użytkownik systemu - co najmniej dwa typy użytkowników, np. `Student` i `Employee`.
+• Wypożyczenie - obiekt opisujący moment wypożyczenia, termin zwrotu, faktyczny zwrot oraz
+wynikające opłaty lub kary.
+• Serwis albo zestaw klas serwisowych odpowiedzialnych za logikę biznesową.
+
+Wymagane dane
+• Każdy egzemplarz sprzętu powinien mieć unikalny identyfikator generowany przez system.
+• Każdy sprzęt powinien przechowywać nazwę, status dostępności oraz podstawowe dane
+wspólne.
+• Każdy typ sprzętu powinien posiadać przynajmniej 2 własne pola specyficzne.
+• Każdy użytkownik powinien mieć identyfikator, imię, nazwisko i typ użytkownika.
+• Każde wypożyczenie powinno przechowywać informację: kto, co, kiedy wypożyczył, na jak długo
+i czy zwrot był terminowy.
+
+Wymagania funckjonalne - używać właściwości zamiast pól
+Aplikacja powinna wspierać co najmniej następujące operacje:
+1. Dodanie nowego użytkownika do systemu.
+2. Dodanie nowego sprzętu danego typu.
+3. Wyświetlenie listy całego sprzętu z aktualnym statusem.
+4. Wyświetlenie wyłącznie sprzętu dostępnego do wypożyczenia.
+5. Wypożyczenie sprzętu użytkownikowi.
+6. Zwrot sprzętu wraz z przeliczeniem ewentualnej kary za opóźnienie.
+7. Oznaczenie sprzętu jako niedostępnego, np. z powodu uszkodzenia lub serwisu.
+8. Wyświetlenie aktywnych wypożyczeń danego użytkownika.
+9. Wyświetlenie listy przeterminowanych wypożyczeń.
+10. Wygenerowanie krótkiego raportu podsumowującego stan wypożyczalni.
+
+Reguły biznesowe (użytku)
+• Student może mieć jednocześnie maksymalnie 2 aktywne wypożyczenia.
+• Pracownik może mieć jednocześnie maksymalnie 5 aktywnych wypożyczeń.
+• Jeżeli sprzęt ma status niedostępny, nie można go wypożyczyć.
+• System powinien blokować wypożyczenie, jeżeli użytkownik przekroczył swój limit.
+• Opóźniony zwrot powinien skutkować naliczeniem kary według zdefiniowanej przez Ciebie
+reguły.
+• Reguły naliczania kary i limity użytkowników mają być zapisane w kodzie w sposób czytelny i
+łatwy do zmiany
+
+Wymagania projektowe
+To jest główna część tego ćwiczenia. Kod ma nie tylko działać, ale ma też być rozsądnie
+zorganizowany.
+• Nie umieszczaj całej logiki biznesowej w `Program.cs` albo w jednej klasie typu `App`.
+• Rozdziel model domenowy od logiki wykonywania operacji i od interfejsu konsolowego.
+• Zadbaj o to, żeby klasy miały jedną wyraźną odpowiedzialność.
+• Unikaj silnego sprzężenia między klasami tam, gdzie da się tego sensownie uniknąć.
+• Jeżeli używasz dziedziczenia, to powinno ono wynikać z modelu domeny, a nie z chęci "żeby było
+bardziej obiektowo".
+• W miejscach, w których to ma sens, użyj interfejsu lub klasy abstrakcyjnej.
+• Jeżeli operacja może się nie powieść, obsłuż to w sposób jawny - wyjątek, wynik operacji albo
+inny czytelny mechanizm.
