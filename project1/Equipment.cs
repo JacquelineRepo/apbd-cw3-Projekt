@@ -22,16 +22,16 @@ public class Equipment
         Availability = true;
         
     }
-    public void changeStatus()
+    public void ChangeStatus()
     {
         Availability = !Availability;
     }
 
-    public void take()
+    public void Take()
     {
         if (Availability)
         {
-            changeStatus();
+            ChangeStatus();
         }
         else
         {
@@ -39,11 +39,11 @@ public class Equipment
         }
     }
     
-    public void ret()
+    public void Return()
     {
         if (!Availability)
         {
-            changeStatus();
+            ChangeStatus();
         }
         else
         {
