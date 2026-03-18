@@ -26,6 +26,30 @@ public class Equipment
     {
         Availability = !Availability;
     }
+
+    public void take()
+    {
+        if (Availability)
+        {
+            this.changeStatus();
+        }
+        else
+        {
+            Console.WriteLine("You can't take something that was never there.");
+        }
+    }
+    
+    public void ret()
+    {
+        if (!Availability)
+        {
+            this.changeStatus();
+        }
+        else
+        {
+            Console.WriteLine("You can't return something that's already there.");
+        }
+    }
     
     
     
