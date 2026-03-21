@@ -40,20 +40,12 @@ public class Service
     public void Run()
     {
         string? input;
-        Console.WriteLine("Please state user type (S - Student, E- Employee");
+        Console.WriteLine("");
         do
         {
             input =  Console.ReadLine();
-            switch (input)
-            {
-                case "S":
-                    Console.WriteLine("Please enter your sNumber");
-                    break;
-                
-                case "E":
-                    Console.WriteLine("Please enter your Id");
-                    break;
-            }
+            
+            
             
 
         } while (input != "quit");
