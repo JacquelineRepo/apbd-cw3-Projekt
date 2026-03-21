@@ -10,31 +10,14 @@ public class Equipment
         get;
         set;
     }
-    public bool Availability{
-        get;
-        set;
-    }
 
-    public DateTime BorrowDate
-    {
-        get;
-        set;
-    }
+    public bool Availability { get; set; }
 
-    public DateTime ReturnDate
-    {
-        get;
-        set;
-    }
-    
     public Equipment(string name)
     {
         Id++;
         Name = name;
         Availability = true;
-        BorrowDate = new DateTime(1970, 1, 1);
-        ReturnDate = new DateTime(1970, 1, 1);
-
     }
     public void ChangeStatus()
     {
@@ -46,7 +29,6 @@ public class Equipment
         if (Availability && !maxBorrow)
         {
             ChangeStatus();
-            BorrowDate = DateTime.Today;
             return Id;
         }else
         {
@@ -60,7 +42,6 @@ public class Equipment
         if (!Availability)
         {
             ChangeStatus();
-            ReturnDate = DateTime.Today;
             user.Account.Remove(eq.IdAccess());
 
         }
