@@ -40,5 +40,10 @@ public class User
         return Account.Count > MaxBorrow;
 
     }
+
+    public virtual string GetId()
+    {
+        return Id.ToString();
+    }
     
 }

@@ -48,12 +48,27 @@ public class Service
             {
                 case "S":
                     Console.WriteLine("Please enter your sNumber");
-                    
-                    
+                    break;
                 
+                case "E":
+                    Console.WriteLine("Please enter your Id");
+                    break;
             }
             
 
         } while (input != "quit");
+    }
+    
+    public bool findUser(string id)
+    {
+        foreach (var person in Users)
+        {
+            string Id = person.GetId();
+            if (Id == id)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

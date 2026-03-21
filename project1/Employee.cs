@@ -9,4 +9,9 @@ public class Employee : User
     {
         MaxBorrow = 5;
     }
+
+    public override string GetId()
+    {
+        return empNum.ToString();
+    }
 }
