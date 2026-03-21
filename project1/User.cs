@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Microsoft.VisualBasic.CompilerServices;
 
 namespace project1;
 
@@ -16,7 +17,7 @@ public class User
         set;
     }
 
-    public ArrayList Account
+    public Dictionary<int, Equipment> Account
     {
         get;
         set;
@@ -29,7 +30,7 @@ public class User
     
     public User(string name)
     {
-        Account = new ArrayList();
+        Account = new Dictionary<int, Equipment>();
         Id++;
         Name = name;
     }

@@ -41,34 +41,39 @@ public class Equipment
         Availability = !Availability;
     }
 
-    public void Take(bool maxBorrow)
+    public int Take(bool maxBorrow)
     {
         if (Availability && !maxBorrow)
         {
             ChangeStatus();
             BorrowDate = DateTime.Today;
-        }
-        else
+            return Id;
+        }else
         {
             Console.WriteLine("You can't take something that was never there.");
+            return -111;
         }
     }
     
-    public void Return()
+    public void Return(User user, Equipment eq)
     {
         if (!Availability)
         {
             ChangeStatus();
             ReturnDate = DateTime.Today;
-            
+            user.Account.Remove(eq.IdAccess());
+
         }
         else
         {
             Console.WriteLine("You can't return something that's already there.");
         }
     }
-    
-    
+
+    public int IdAccess()
+    {
+        return Id;
+    }
     
     
 }
