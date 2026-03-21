@@ -6,7 +6,7 @@ public class Equipment
         get;
         set;
     }
-    public static string? Name{
+    public string? Name{
         get;
         set;
     }
