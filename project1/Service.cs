@@ -13,6 +13,14 @@ public class Service
         get;
         private set;
     }
+
+    public List<Borrow> Borrowed
+    {
+        get;
+        private set;
+    }
+    
+    
     
     
     public Service()
@@ -41,10 +49,42 @@ public class Service
     {
         string? input;
         Console.WriteLine("What would you like to do?");
-        Console.WriteLine("1. Borrow or return, 2. Add equipment to list, ");
+        Console.WriteLine("1. Borrow, 2. Return, 3. Add equipment to list, 4 to exit");
         do
         {
             input =  Console.ReadLine();
+            switch (input)
+            {
+                case "1" :
+                    Console.WriteLine("Displaying list");
+                    ListAvailableEquipment();
+                    Console.WriteLine("Input what you would like to borrow");
+                    input = Console.ReadLine();
+                    if (ValidIn(input))
+                    {
+                        Console.WriteLine("For how many days?");
+                        int days = Console.Read();
+                        Borrow bor = new Borrow(FindEquipment(input).IdAccess(),days);
+                        Borrowed.Add(bor);
+                        
+                    }
+                    else
+                    {
+                        Console.WriteLine("Couldn't find item.");
+                    }
+                    break;
+                case "2" :
+                    Console.WriteLine("Input what you would like to return");
+                    
+                    break;
+                case "3" :
+                    Console.WriteLine("Input what you would like to add");
+                    
+                    break;
+                default:
+                    Console.WriteLine("Something went wrong");
+                    break;
+            }
 
         } while (input != "quit");
     }
@@ -61,4 +101,56 @@ public class Service
         }
         return false;
     }
+    public void Return(User user, Equipment eq)
+    {
+        if (!eq.Availability)
+        {
+            eq.ChangeStatus();
+            user.Account.Remove(eq.IdAccess());
+        }
+        else
+        {
+            Console.WriteLine("You can't return something that's already there.");
+        }
+    }
+    public int Take(Equipment equipment, User user)
+    {
+        if (equipment.Availability && !user.MaxBorrowed())
+        {
+            equipment.ChangeStatus();
+            return equipment.IdAccess();
+        }else
+        {
+            Console.WriteLine("You can't take something that was never there.");
+            return -111;
+        }
+    }
+
+    public bool ValidIn(string? name)
+    {
+        foreach (var VARIABLE in Equipment)
+        {
+            if (VARIABLE.Name == name && VARIABLE.Availability)
+            {
+                return true;
+            }
+            
+        }
+        return false;
+    }
+
+    public Equipment? FindEquipment(string id)
+    {
+        foreach (var VARIABLE in Equipment)
+        {
+            if (VARIABLE.Name == id)
+            {
+                return VARIABLE;
+            }
+            
+        }
+        return null;
+    }
+    
+    
 }
