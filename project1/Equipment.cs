@@ -14,13 +14,27 @@ public class Equipment
         get;
         set;
     }
+
+    public DateTime BorrowDate
+    {
+        get;
+        set;
+    }
+
+    public DateTime ReturnDate
+    {
+        get;
+        set;
+    }
     
     public Equipment(string name)
     {
         Id++;
         Name = name;
         Availability = true;
-        
+        BorrowDate = new DateTime(1970, 1, 1);
+        ReturnDate = new DateTime(1970, 1, 1);
+
     }
     public void ChangeStatus()
     {
@@ -32,6 +46,7 @@ public class Equipment
         if (Availability)
         {
             ChangeStatus();
+            BorrowDate = DateTime.Today;
         }
         else
         {
@@ -44,6 +59,8 @@ public class Equipment
         if (!Availability)
         {
             ChangeStatus();
+            ReturnDate = DateTime.Today;
+            
         }
         else
         {
