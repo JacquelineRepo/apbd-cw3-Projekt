@@ -1,4 +1,6 @@
-﻿namespace project1;
+﻿using System.Collections;
+
+namespace project1;
 
 public class User
 {
@@ -7,7 +9,13 @@ public class User
         get;
         set;
     }
-    public static string? Name
+
+    public ArrayList Account
+    {
+        get;
+        set;
+    }
+    public string? Name
     {
         get;
         set;
@@ -15,6 +23,7 @@ public class User
     
     public User(string name)
     {
+        Account = new ArrayList();
         Id++;
         Name = name;
     }
