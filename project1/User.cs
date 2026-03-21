@@ -33,5 +33,11 @@ public class User
         Id++;
         Name = name;
     }
+
+    public bool MaxBorrowed()
+    {
+        return Account.Count > MaxBorrow;
+
+    }
     
 }

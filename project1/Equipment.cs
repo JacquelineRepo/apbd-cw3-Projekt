@@ -41,9 +41,9 @@ public class Equipment
         Availability = !Availability;
     }
 
-    public void Take()
+    public void Take(bool maxBorrow)
     {
-        if (Availability)
+        if (Availability && !maxBorrow)
         {
             ChangeStatus();
             BorrowDate = DateTime.Today;
