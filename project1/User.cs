@@ -4,6 +4,12 @@ namespace project1;
 
 public class User
 {
+
+    public int MaxBorrow
+    {
+        get;
+        set;
+    }
     public static int Id
     {
         get;
