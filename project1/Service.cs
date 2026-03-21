@@ -40,13 +40,11 @@ public class Service
     public void Run()
     {
         string? input;
-        Console.WriteLine("");
+        Console.WriteLine("What would you like to do?");
+        Console.WriteLine("1. Borrow or return, 2. Add equipment to list, ");
         do
         {
             input =  Console.ReadLine();
-            
-            
-            
 
         } while (input != "quit");
     }
