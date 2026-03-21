@@ -14,4 +14,16 @@ public class Student : User
     {
         return Snum;
     }
+
+    public override Student? GetUser(string? id)
+    {
+        if (id == Snum)
+        {
+            return this;
+        }
+        else
+        {
+            return null;
+        }
+    }
 }

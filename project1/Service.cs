@@ -67,11 +67,30 @@ public class Service
                         Borrow bor = new Borrow(FindEquipment(input).IdAccess(),days);
                         Borrowed.Add(bor);
                         
+                        Console.WriteLine("Please enter your Id or Snum");
+                        input = Console.ReadLine();
+                        if (findUser(input))
+                        {
+                            foreach (var VARIABLE in Users)
+                            {
+                                if (VARIABLE.GetUser(input) != null)
+                                {
+                                    VARIABLE.Account
+                                }
+                                
+                                
+                            }
+                            
+                            
+                        }
+                        
+                        
                     }
                     else
                     {
                         Console.WriteLine("Couldn't find item.");
                     }
+                    
                     break;
                 case "2" :
                     Console.WriteLine("Input what you would like to return");
@@ -89,7 +108,7 @@ public class Service
         } while (input != "quit");
     }
     
-    public bool findUser(string id)
+    public bool findUser(string? id)
     {
         foreach (var person in Users)
         {

@@ -45,5 +45,11 @@ public class User
     {
         return Id.ToString();
     }
+
+    public virtual User? GetUser(string? id)
+    {
+        
+        return this;
+    }
     
 }
