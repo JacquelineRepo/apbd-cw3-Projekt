@@ -1,1 +1,7 @@
-﻿Console.WriteLine("Hello, World!");
+﻿namespace project1;
+public class Service
+{
+    
+    public Service()
+    {}
+}
