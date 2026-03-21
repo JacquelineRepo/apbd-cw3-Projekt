@@ -37,7 +37,7 @@ public class User
 
     public bool MaxBorrowed()
     {
-        return Account.Count > MaxBorrow;
+        return Account.Count >= MaxBorrow;
 
     }
 

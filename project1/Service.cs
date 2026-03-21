@@ -49,13 +49,14 @@ public class Service
     {
         string? input;
         Console.WriteLine("What would you like to do?");
-        Console.WriteLine("1. Borrow, 2. Return, 3. Add equipment to list, 4 to exit");
+        Console.WriteLine("1. Borrow, 2. Return, 3. Add equipment to list, 4. Exit");
         do
         {
             input =  Console.ReadLine();
             switch (input)
             {
                 case "1" :
+                    
                     Console.WriteLine("Displaying list");
                     ListAvailableEquipment();
                     Console.WriteLine("Input what you would like to borrow");

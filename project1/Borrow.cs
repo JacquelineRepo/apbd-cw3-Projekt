@@ -30,10 +30,11 @@ public class Borrow
         ReturnDate = DateTime.Now;
         if (daysGone > 25)
         {
-            while (daysGone > 25)
+            daysGone -= 25;
+            while (daysGone > 0)
             {
-                Costs += ReturnDate.Subtract(BorrowDate).Days;
-                daysGone -= 25;
+                Costs += 5;
+                daysGone -= 7;
             }
         }
     }
