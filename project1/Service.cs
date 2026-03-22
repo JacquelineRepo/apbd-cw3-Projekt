@@ -216,6 +216,19 @@ public class Service
         return null;
     }
 
+    public void ShowExpired()
+    {
+        Console.WriteLine("Showing expired loans");
+        foreach (var VARIABLE in Borrowed)
+        {
+            if (VARIABLE.RetInTime == false)
+            {
+                Console.WriteLine(VARIABLE.Eq.Name);
+            }
+            
+        }
+    }
+
     public void DisplayUserBorrows(int id)
     {
         foreach (var VARIABLE in Borrowed)
