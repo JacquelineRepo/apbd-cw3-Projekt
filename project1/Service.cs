@@ -18,7 +18,7 @@ public class Service
         {
             if (equipment.Availability)
             {
-                Console.WriteLine(equipment.Name);
+                Console.WriteLine(equipment.Name + "\n");
             }
         }
     }
@@ -29,17 +29,17 @@ public class Service
         switch (input)
         {
             case 1:
-                Console.WriteLine("Please enter your Id");
+                Console.WriteLine("Please enter your Id\n");
                 input = Convert.ToInt32(Console.ReadLine());
                 if (FindUser(input)!.GetId() != 0 && !FindUser(input)!.MaxBorrowed())
                 {
-                    Console.WriteLine("Displaying list");
+                    Console.WriteLine("Displaying list\n");
                     ListAvailableEquipment();
-                    Console.WriteLine("Input what you would like to borrow");
+                    Console.WriteLine("Input what you would like to borrow\n");
                     inputEq = Console.ReadLine();
                     if (ValidIn(inputEq) != null)
                     {
-                        Console.WriteLine("For how many days?");
+                        Console.WriteLine("For how many days?\n");
                         var days = Console.Read();
                         var eq = FindEquipment(inputEq!);
                         var id = eq!.IdAccess();
@@ -50,53 +50,54 @@ public class Service
                         Take(eq, user!);
                         Borrowed.Add(bor);
 
-                        Console.Write("Successfully borrowed.");
+                        Console.Write("Successfully borrowed.\n");
                     }
                     else
                     {
-                        Console.Write("Couldn't find user, register? Y/N (An account is needed to borrow equipment.)");
+                        Console.Write("Couldn't find user, register? Y/N (An account is needed to borrow equipment.)\n");
                         var input2 = Console.ReadLine();
                         switch (input2)
                         {
                             case "Y":
-                                Console.Write("Enter name and surname");
+                                Console.Write("Enter name and surname\n");
                                 var name1 = Console.ReadLine();
                                 var nameSurname1 = name1!.Split();
 
-                                Console.WriteLine("Student or employee? S/E");
+                                Console.WriteLine("Student or employee? S/E\n");
                                 var userType1 = Console.ReadLine();
                                 switch (userType1)
                                 {
                                     case "S":
                                         var stud = new Student(nameSurname1[0], nameSurname1[1]);
                                         Users.Add(stud);
-                                        Console.WriteLine("Here is your ID: " + stud.GetId());
+                                        Console.WriteLine("Here is your ID: " + stud.GetId()+ "\n");
                                         break;
                                     case "E":
                                         var e = new Employee(nameSurname1[0], nameSurname1[1]);
                                         Users.Add(e);
-                                        Console.WriteLine("Here is your ID: " + e.GetId());
+                                        Console.WriteLine("Here is your ID: " + e.GetId() + "\n");
+                                        
                                         break;
                                     default:
-                                        Console.WriteLine("Something went wrong");
+                                        Console.WriteLine("Something went wrong\n");
                                         break;
                                 }
 
                                 break;
                             case "N":
-                                Console.WriteLine("Cannot borrow without an account, exiting.");
+                                Console.WriteLine("Cannot borrow without an account, exiting.\n");
                                 break;
                         }
 
-                        Console.WriteLine("Couldn't find item.");
+                        Console.WriteLine("Couldn't find item.\n");
                     }
                 }
 
                 break;
             case 2:
-                Console.WriteLine("Input what you would like to return");
+                Console.WriteLine("Input what you would like to return\n");
                 var input3 = Console.ReadLine();
-                Console.WriteLine("Please input your Id or Snum");
+                Console.WriteLine("Please input your Id or Snum\n");
                 var input4 = Convert.ToInt32(Console.ReadLine());
                 var validEq = ValidIn(input3);
                 var validUser = FindUser(input4);
@@ -107,56 +108,56 @@ public class Service
                     var validEqId = eq!.IdAccess();
                     FindBorrow(validEqId)!.Returned();
 
-                    Console.WriteLine("Here are the costs:");
-                    Console.WriteLine(FindBorrow(validEqId)!.Costs);
-                    Console.WriteLine("Successfully returned.");
+                    Console.WriteLine("Here are the costs: ");
+                    Console.WriteLine(FindBorrow(validEqId)!.Costs + "\n");
+                    Console.WriteLine("Successfully returned.\n");
                 }
 
                 break;
             case 3:
-                Console.WriteLine("Input what you would like to add");
+                Console.WriteLine("Input what you would like to add\n");
                 inputEq = Console.ReadLine();
                 switch (inputEq)
                 {
                     case "Laptop":
-                        Console.WriteLine("Input Graphics Card model");
+                        Console.WriteLine("Input Graphics Card model\n");
                         var input2 = Console.ReadLine();
 
-                        Console.WriteLine("Input battery life(hours in Integer)");
+                        Console.WriteLine("Input battery life(hours in Integer)\n");
                         var input5 = Convert.ToInt32(Console.ReadLine());
 
                         var lap = new Laptop(input2, input5);
                         AddEquipment(lap);
 
-                        Console.WriteLine("Successfully added");
+                        Console.WriteLine("Successfully added\n");
                         break;
                     case "MarkerSet":
-                        Console.WriteLine("Input amount of markers");
+                        Console.WriteLine("Input amount of markers\n");
                         var input6 = Convert.ToInt32(Console.ReadLine());
 
-                        Console.WriteLine("Input color of set");
+                        Console.WriteLine("Input color of set\n");
                         var input9 = Console.ReadLine();
 
                         var mark = new MarkerSet(input6, input9);
                         AddEquipment(mark);
 
-                        Console.WriteLine("Successfully added");
+                        Console.WriteLine("Successfully added\n");
                         break;
 
                     case "Projector":
-                        Console.WriteLine("Input model");
+                        Console.WriteLine("Input model\n");
                         var input0 = Console.ReadLine();
 
-                        Console.WriteLine("Input battery life(hours in Integer)");
+                        Console.WriteLine("Input battery life(hours in Integer)\n");
                         var input11 = Convert.ToInt32(Console.ReadLine());
 
                         var proj = new Projector(input0, input11);
                         AddEquipment(proj);
 
-                        Console.WriteLine("Successfully added");
+                        Console.WriteLine("Successfully added\n");
                         break;
                     default:
-                        Console.WriteLine("Invalid input equipment");
+                        Console.WriteLine("Invalid input equipment\n");
                         break;
                 }
 
@@ -168,10 +169,10 @@ public class Service
                 ListAvailableEquipment();
                 break;
             case 6:
-                Console.WriteLine("Enter Name of equipment to change status");
+                Console.WriteLine("Enter Name of equipment to change status\n");
                 inputEq = Console.ReadLine();
 
-                Console.WriteLine("Enter Id of equipment");
+                Console.WriteLine("Enter Id of equipment\n");
                 input = Convert.ToInt32(Console.ReadLine());
 
                 var equipment = FindEquipment(inputEq!);
@@ -184,7 +185,7 @@ public class Service
 
                 break;
             case 7:
-                Console.WriteLine("Enter Id of user to check active loans");
+                Console.WriteLine("Enter Id of user to check active loans\n");
                 input = Convert.ToInt32(Console.ReadLine());
 
                 DisplayUserBorrows(input);
@@ -193,35 +194,35 @@ public class Service
                 ShowExpired();
                 break;
             case 9:
-                Console.Write("Enter name and surname");
+                Console.Write("Enter name and surname\n");
                 var name2 = Console.ReadLine();
                 var nameSurname2 = name2!.Split();
 
-                Console.WriteLine("Student or employee? S/E");
+                Console.WriteLine("Student or employee? S/E\n");
                 var userType = Console.ReadLine();
                 switch (userType)
                 {
                     case "S":
                         var stud = new Student(nameSurname2[0], nameSurname2[1]);
                         Users.Add(stud);
-                        Console.WriteLine("Here is your ID: " + stud.GetId());
+                        Console.WriteLine("Here is your ID: " + stud.GetId() + "\n");
                         break;
                     case "E":
                         var e = new Employee(nameSurname2[0], nameSurname2[1]);
                         Users.Add(e);
-                        Console.WriteLine("Here is your ID: " + e.GetId());
+                        Console.WriteLine("Here is your ID: " + e.GetId() + "\n");
                         break;
                     default:
-                        Console.WriteLine("Something went wrong");
+                        Console.WriteLine("Something went wrong\n");
                         break;
                 }
 
                 break;
             case -1:
-                Console.WriteLine("Quitting...");
+                Console.WriteLine("Quitting...\n");
                 break;
             default:
-                Console.WriteLine("Something went wrong");
+                Console.WriteLine("Something went wrong\n");
                 break;
         }
     }
@@ -241,12 +242,12 @@ public class Service
 
     private void ShowExpired()
     {
-        Console.WriteLine("Showing expired loans");
+        Console.WriteLine("Showing expired loans\n");
         foreach (var variable in Borrowed)
         {
             if (variable.RetInTime == false)
             {
-                Console.WriteLine(variable.Eq.Name);
+                Console.WriteLine(variable.Eq.Name + "\n");
             }
             
         }
@@ -258,7 +259,7 @@ public class Service
         {
             if (variable.Id == id && variable.ReturnDate == DateTime.UnixEpoch )
             {
-                Console.WriteLine(variable.Eq.Name + " Borrowed " + variable.BorrowDate );
+                Console.WriteLine(variable.Eq.Name + " Borrowed " + variable.BorrowDate + "\n");
             }
         }
     }
@@ -272,7 +273,7 @@ public class Service
         }
         else
         {
-            Console.WriteLine("You can't return something that's already there.");
+            Console.WriteLine("You can't return something that's already there.\n");
         }
     }
 
@@ -280,7 +281,7 @@ public class Service
     {
         foreach (var v in Equipment)
         {
-            Console.WriteLine(v.Name + " " + v.Availability);
+            Console.WriteLine(v.Name + " " + v.Availability + "\n");
         }
     }
 
