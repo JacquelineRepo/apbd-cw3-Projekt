@@ -1,12 +1,7 @@
 ﻿namespace project1.equipmentVar;
 
-public class Laptop : Equipment
+public class Laptop(string? gcard, int batlife) : Equipment
 {
-    public string? GraphicsCard { get; set; }
-    public int BatterLife { get;  set; }
-    public Laptop(string? gcard, int batlife)
-    {
-        GraphicsCard = gcard;
-        BatterLife = batlife;
-    }
+    public string? GraphicsCard { get; set; } = gcard;
+    public int BatterLife { get;  set; } = batlife;
 }

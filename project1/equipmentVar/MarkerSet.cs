@@ -1,14 +1,7 @@
 ﻿namespace project1.equipmentVar;
 
-public class MarkerSet : Equipment
+public class MarkerSet(int am, string? color) : Equipment
 {
-    public int Amount{get;set;}
-    public string? Colors{get;set;}
-    public MarkerSet(int am, string? color)
-    {
-        Amount = am;
-        Colors = color;
-    }
-    
-    
+    public int Amount{get;set;} = am;
+    public string? Colors{get;set;} = color;
 }

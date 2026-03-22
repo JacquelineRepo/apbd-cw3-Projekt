@@ -1,33 +1,22 @@
 ﻿namespace project1;
 
-public class Borrow
+public class Borrow(int id, double bt, Equipment eq)
 {
     
-    public int Id{get;set;}
-    public bool RetInTime{get; set; }
+    public int Id{get;set;} = id;
+    public bool RetInTime{get; private set; } = true;
 
-    public Equipment Eq{ get; set; }
-    public DateTime BorrowDate{get;set;}
-    public double BorrowedTime{get;set;}
-    public DateTime ReturnDate{get;set;}
-    
-    public double Costs{get;set;}
+    public Equipment Eq{ get; set; } = eq;
+    public DateTime BorrowDate{get;set;} = DateTime.Now;
+    private double BorrowedTime{get;set;} = bt;
+    public DateTime ReturnDate{get; private set;} = DateTime.UnixEpoch;
 
-    public Borrow(int id, double bt, Equipment eq)
-    {
-        Id = id;
-        BorrowDate = DateTime.Now;
-        BorrowedTime = bt;
-        RetInTime = true;
-        Eq = eq;
-        ReturnDate = DateTime.UnixEpoch;
+    public double Costs{get; private set;}
 
-    }
-    
 
     public void Returned()
     {
-        int daysGone = ReturnDate.Subtract(BorrowDate).Days;
+        var daysGone = ReturnDate.Subtract(BorrowDate).Days;
         ReturnDate = DateTime.Now;
         Costs = BorrowedTime / 4.0;
         if (daysGone > 25)
