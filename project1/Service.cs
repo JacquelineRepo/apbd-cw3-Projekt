@@ -11,7 +11,7 @@ public class Service
         private set;
     }
 
-    public Dictionary<Equipment, int> Equipment
+    public List<Equipment> Equipment
     {
         get;
         private set;
@@ -34,19 +34,12 @@ public class Service
     }
     
     public void AddEquipment(Equipment equipment){
-        if (FindEquipment(equipment.Name) != null)
-        {
-            Equipment[equipment]++;
-        }
-        else
-        {
-            Equipment.Add(equipment, 1);
-        }
+        Equipment.Add(equipment);
     }
 
     public void ListAvailableEquipment()
     {
-        foreach (Equipment equipment in Equipment.Keys)
+        foreach (Equipment equipment in Equipment)
         {
             if (equipment.Availability)
             {
@@ -59,7 +52,8 @@ public class Service
     {
         int input;
         Console.WriteLine("What would you like to do?");
-        Console.WriteLine("1. Borrow, 2. Return, 3. Add equipment to list, -1. Exit,");
+        Console.WriteLine("1. Borrow, 2. Return, 3. Add equipment to list, 4. List all Equipment, 5. List available," +
+                          "6. Change status of equipment, 7. Display a users loans, -1. Exit,");
         do
         {
             input = Console.Read();
@@ -79,7 +73,7 @@ public class Service
                         {
                             Console.WriteLine("For how many days?");
                             int days = Console.Read();
-                            Borrow bor = new Borrow(FindEquipment(inputEq).IdAccess(),days);
+                            Borrow bor = new Borrow(FindEquipment(inputEq).IdAccess(),days, FindEquipment(inputEq));
                             Take(FindEquipment(inputEq), findUser(input));
                             Borrowed.Add(bor);
                             Console.Write("Successfully borrowed.");
@@ -177,7 +171,28 @@ public class Service
                             break;
                     }
                     break;
-                case -4:
+                case 4:
+                    ListAll();
+                    break;
+                case 5:
+                    ListAvailableEquipment();
+                    break;
+                case 6:
+                    Console.WriteLine("Enter Name of equipment to change status");
+                    inputEq = Console.ReadLine();
+                    Console.WriteLine("Enter Id of equipment");
+                    input = Console.Read();
+                    if (FindEquipment(inputEq).IdAccess() == input)
+                    {
+                        FindEquipment(inputEq).ChangeStatus();
+                    }
+                    break;
+                case 7:
+                    Console.WriteLine("Enter Id of user to check active loans");
+                    input = Console.Read();
+                    DisplayUserBorrows(input);
+                    break;
+                case -1:
                     Console.WriteLine("Quitting...");
                     break;
                 default:
@@ -200,6 +215,18 @@ public class Service
         }
         return null;
     }
+
+    public void DisplayUserBorrows(int id)
+    {
+        foreach (var VARIABLE in Borrowed)
+        {
+            if (VARIABLE.Id == id && VARIABLE.ReturnDate == DateTime.UnixEpoch )
+            {
+                Console.WriteLine(VARIABLE.Eq.Name + " Borrowed " + VARIABLE.BorrowDate );
+            }
+            
+        }
+    }
     
     
     
@@ -213,6 +240,14 @@ public class Service
         else
         {
             Console.WriteLine("You can't return something that's already there.");
+        }
+    }
+
+    public void ListAll()
+    {
+        foreach (var v in Equipment)
+        {
+            Console.WriteLine(v.Name + " " + v.Availability);
         }
     }
 
@@ -239,7 +274,7 @@ public class Service
 
     public Equipment? ValidIn(string? name)
     {
-        foreach (var VARIABLE in Equipment.Keys)
+        foreach (var VARIABLE in Equipment)
         {
             if (VARIABLE.Name == name && VARIABLE.Availability)
             {
@@ -255,7 +290,7 @@ public class Service
 
     public Equipment? FindEquipment(string id)
     {
-        foreach (var VARIABLE in Equipment.Keys)
+        foreach (var VARIABLE in Equipment)
         {
             if (VARIABLE.Name == id)
             {
