@@ -5,6 +5,8 @@ namespace project1;
 
 public class User
 {
+    public string? Surname{get;set;}
+    
 
     public int MaxBorrow
     {
@@ -28,11 +30,12 @@ public class User
         set;
     }
     
-    public User(string name)
+    public User(string name, string sur)
     {
         Account = new Dictionary<int, Equipment>();
         Id++;
         Name = name;
+        Surname = sur;
     }
 
     public bool MaxBorrowed()
@@ -41,15 +44,18 @@ public class User
 
     }
 
-    public virtual string GetId()
+    public virtual int GetId()
     {
-        return Id.ToString();
+        return Id;
     }
 
-    public virtual User? GetUser(string? id)
+    public virtual User? GetUser(int id)
     {
-        
-        return this;
+        if (id == Id)
+        {
+            return this;
+        }
+        return null;
     }
     
 }

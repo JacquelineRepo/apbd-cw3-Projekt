@@ -57,31 +57,31 @@ public class Service
 
     public void Run()
     {
-        string? input;
+        int input;
         Console.WriteLine("What would you like to do?");
-        Console.WriteLine("1. Borrow, 2. Return, 3. Add equipment to list, 4. Exit");
+        Console.WriteLine("1. Borrow, 2. Return, 3. Add equipment to list, -1. Exit,");
         do
         {
-            input =  Console.ReadLine();
+            input = Console.Read();
+            string? inputEq;
             switch (input)
             {
-                case "1" :
-                    Console.WriteLine("Please enter your Id or Snum");
-                    input = Console.ReadLine();
-                    if (findUser(input) != null && !findUser(input).MaxBorrowed())
+                case 1:
+                    Console.WriteLine("Please enter your Id");
+                    input = Console.Read();
+                    if (findUser(input).GetId() != 0 && !findUser(input).MaxBorrowed())
                     {
                         Console.WriteLine("Displaying list");
                         ListAvailableEquipment();
                         Console.WriteLine("Input what you would like to borrow");
-                        input = Console.ReadLine();
-                        if (ValidIn(input) != null)
+                        inputEq = Console.ReadLine();
+                        if (ValidIn(inputEq) != null)
                         {
                             Console.WriteLine("For how many days?");
                             int days = Console.Read();
-                            Borrow bor = new Borrow(FindEquipment(input).IdAccess(),days);
-                            FindEquipment(input).ChangeStatus();
+                            Borrow bor = new Borrow(FindEquipment(inputEq).IdAccess(),days);
+                            Take(FindEquipment(inputEq), findUser(input));
                             Borrowed.Add(bor);
-                            findUser(input).Account.Add(ValidIn(input).IdAccess(), ValidIn(input));
                             Console.Write("Successfully borrowed.");
                             
                         }
@@ -92,19 +92,22 @@ public class Service
                             switch (input2)
                             {
                                 case "Y":
-                                    Console.Write("Enter name");
+                                    Console.Write("Enter name and surname");
                                     string? name = Console.ReadLine();
+                                    string[] word = name.Split();
                                     Console.WriteLine("Student or employee? S/E");
                                     string? ohgod = Console.ReadLine();
                                     switch (ohgod)
                                     {
                                         case "S":
-                                            Student stud = new Student(name, input);
+                                            Student stud = new Student(word[0], word[1]);
                                             Users.Add(stud);
+                                            Console.WriteLine("Here is your ID: "+ stud.GetId());
                                             break;
                                         case "E":
-                                            Employee e = new Employee(name, input);
+                                            Employee e = new Employee(word[0], word[1]);
                                             Users.Add(e);
+                                            Console.WriteLine("Here is your ID: "+ e.GetId());
                                             break;
                                         default:
                                             Console.WriteLine("Something went wrong");
@@ -121,26 +124,25 @@ public class Service
                         
                     }
                     break;
-                case "2" :
+                case 2 :
                     Console.WriteLine("Input what you would like to return");
                     string? input3 = Console.ReadLine();
                     Console.WriteLine("Please input your Id or Snum");
-                    string? input4 = Console.ReadLine();
-                    if (ValidIn(input) != null && findUser(input4) != null)
+                    int input4 = Console.Read();
+                    if (ValidIn(input3) != null && findUser(input4) != null)
                     {
-                        findUser(input4).Account.Remove(ValidIn(input3).IdAccess());
-                        ValidIn(input).ChangeStatus();
-                        findBorrow(ValidIn(input).IdAccess()).ReturnDate = DateTime.Today;
+                        Return(findUser(input4), FindEquipment(input3));
+                        findBorrow(ValidIn(input3).IdAccess()).Returned();
                         Console.WriteLine("Here are the costs:");
-                        Console.WriteLine(findBorrow(ValidIn(input).IdAccess()).Costs);
+                        Console.WriteLine(findBorrow(ValidIn(input3).IdAccess()).Costs);
                         Console.WriteLine("Successfully returned.");
                     }
                     
                     break;
-                case "3" :
+                case  3:
                     Console.WriteLine("Input what you would like to add");
-                    input = Console.ReadLine();
-                    switch (input)
+                    inputEq = Console.ReadLine();
+                    switch (inputEq)
                     {
                         case "Laptop":
                             Console.WriteLine("Input Graphics Card model");
@@ -175,7 +177,7 @@ public class Service
                             break;
                     }
                     break;
-                case "4":
+                case -4:
                     Console.WriteLine("Quitting...");
                     break;
                 default:
@@ -183,14 +185,14 @@ public class Service
                     break;
             }
 
-        } while (input != "quit");
+        } while (input != -1);
     }
     
-    public User? findUser(string? id)
+    public User? findUser(int id)
     {
         foreach (var person in Users)
         {
-            string Id = person.GetId();
+            int Id = person.GetId();
             if (Id == id)
             {
                 return person.GetUser(id);
@@ -226,16 +228,12 @@ public class Service
         }
         return null;
     }
-    public int Take(Equipment equipment, User user)
+    public void Take(Equipment equipment, User user)
     {
         if (equipment.Availability && !user.MaxBorrowed())
         {
             equipment.ChangeStatus();
-            return equipment.IdAccess();
-        }else
-        {
-            Console.WriteLine("You can't take something that was never there.");
-            return -111;
+            user.Account.Add(equipment.IdAccess(), equipment);
         }
     }
 

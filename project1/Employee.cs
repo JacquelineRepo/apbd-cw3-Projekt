@@ -3,28 +3,23 @@
 public class Employee : User
 
 {
-    public string empNum { get; set; }
     
-    public Employee(string name, string? eId) : base(name)
+    public Employee(string name, string sur) : base(name,sur)
     {
         MaxBorrow = 5;
-        empNum = eId;
     }
 
-    public override string GetId()
+    public override int GetId()
     {
-        return empNum.ToString();
+        return Id;
     }
 
-    public override Employee GetUser(string? id)
+    public override Employee GetUser(int id)
     {
-        if (id == empNum)
+        if (id == Id)
         {
             return this;
         }
-        else
-        {
-            return null;
-        }
+        return null;
     }
 }

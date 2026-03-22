@@ -3,28 +3,20 @@
 public class Student : User
 {
     
-    public string Snum  { get; set; }
-    
-    public Student(string name, string? snum) : base(name)
+    public Student(string name, string sur) : base(name,sur)
     {
         MaxBorrow = 2;
-        Snum = snum;
     }
 
-    public override string GetId()
-    {
-        return Snum;
-    }
+  
 
-    public override Student? GetUser(string? id)
+    public override Student? GetUser(int id)
     {
-        if (id == Snum)
+        if (id == Id)
         {
             return this;
         }
-        else
-        {
-            return null;
-        }
+        return null;
+        
     }
 }

@@ -16,18 +16,13 @@ public class Borrow
         BorrowDate = DateTime.Now;
         BorrowedTime = bt;
     }
-
-    public void Borrowed()
-    {
-        BorrowDate = DateTime.Now;
-        Costs = BorrowedTime / 4.0;
-
-    }
+    
 
     public void Returned()
     {
         int daysGone = ReturnDate.Subtract(BorrowDate).Days;
         ReturnDate = DateTime.Now;
+        Costs = BorrowedTime / 4.0;
         if (daysGone > 25)
         {
             daysGone -= 25;
