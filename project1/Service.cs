@@ -1,4 +1,7 @@
-﻿namespace project1;
+﻿using System.Text.RegularExpressions;
+using project1.equipmentVar;
+
+namespace project1;
 public class Service
 {
 
@@ -8,7 +11,7 @@ public class Service
         private set;
     }
 
-    public List<Equipment> Equipment
+    public Dictionary<Equipment, int> Equipment
     {
         get;
         private set;
@@ -31,12 +34,19 @@ public class Service
     }
     
     public void AddEquipment(Equipment equipment){
-        Equipment.Add(equipment);
+        if (FindEquipment(equipment.Name) != null)
+        {
+            Equipment[equipment]++;
+        }
+        else
+        {
+            Equipment.Add(equipment, 1);
+        }
     }
 
     public void ListAvailableEquipment()
     {
-        foreach (Equipment equipment in Equipment)
+        foreach (Equipment equipment in Equipment.Keys)
         {
             if (equipment.Availability)
             {
@@ -56,50 +66,117 @@ public class Service
             switch (input)
             {
                 case "1" :
-                    
-                    Console.WriteLine("Displaying list");
-                    ListAvailableEquipment();
-                    Console.WriteLine("Input what you would like to borrow");
+                    Console.WriteLine("Please enter your Id or Snum");
                     input = Console.ReadLine();
-                    if (ValidIn(input))
+                    if (findUser(input) != null && !findUser(input).MaxBorrowed())
                     {
-                        Console.WriteLine("For how many days?");
-                        int days = Console.Read();
-                        Borrow bor = new Borrow(FindEquipment(input).IdAccess(),days);
-                        Borrowed.Add(bor);
-                        
-                        Console.WriteLine("Please enter your Id or Snum");
+                        Console.WriteLine("Displaying list");
+                        ListAvailableEquipment();
+                        Console.WriteLine("Input what you would like to borrow");
                         input = Console.ReadLine();
-                        if (findUser(input))
+                        if (ValidIn(input) != null)
                         {
-                            foreach (var VARIABLE in Users)
-                            {
-                                if (VARIABLE.GetUser(input) != null)
-                                {
-                                    VARIABLE.Account
-                                }
-                                
-                                
-                            }
-                            
+                            Console.WriteLine("For how many days?");
+                            int days = Console.Read();
+                            Borrow bor = new Borrow(FindEquipment(input).IdAccess(),days);
+                            FindEquipment(input).ChangeStatus();
+                            Borrowed.Add(bor);
+                            findUser(input).Account.Add(ValidIn(input).IdAccess(), ValidIn(input));
+                            Console.Write("Successfully borrowed.");
                             
                         }
-                        
+                        else
+                        {
+                            Console.Write("Couldn't find user, register? Y/N (An account is needed to borrow equipment.)" );
+                            string? input2 = Console.ReadLine();
+                            switch (input2)
+                            {
+                                case "Y":
+                                    Console.Write("Enter name");
+                                    string? name = Console.ReadLine();
+                                    Console.WriteLine("Student or employee? S/E");
+                                    string? ohgod = Console.ReadLine();
+                                    switch (ohgod)
+                                    {
+                                        case "S":
+                                            Student stud = new Student(name, input);
+                                            Users.Add(stud);
+                                            break;
+                                        case "E":
+                                            Employee e = new Employee(name, input);
+                                            Users.Add(e);
+                                            break;
+                                        default:
+                                            Console.WriteLine("Something went wrong");
+                                            break;
+                                    }
+                                    break;
+                                case "N":
+                                    Console.WriteLine("Cannot borrow without an account, exiting.");
+                                    break;
+                            }
+                            
+                            Console.WriteLine("Couldn't find item.");
+                        }
                         
                     }
-                    else
-                    {
-                        Console.WriteLine("Couldn't find item.");
-                    }
-                    
                     break;
                 case "2" :
                     Console.WriteLine("Input what you would like to return");
+                    string? input3 = Console.ReadLine();
+                    Console.WriteLine("Please input your Id or Snum");
+                    string? input4 = Console.ReadLine();
+                    if (ValidIn(input) != null && findUser(input4) != null)
+                    {
+                        findUser(input4).Account.Remove(ValidIn(input3).IdAccess());
+                        ValidIn(input).ChangeStatus();
+                        findBorrow(ValidIn(input).IdAccess()).ReturnDate = DateTime.Today;
+                        Console.WriteLine("Here are the costs:");
+                        Console.WriteLine(findBorrow(ValidIn(input).IdAccess()).Costs);
+                        Console.WriteLine("Successfully returned.");
+                    }
                     
                     break;
                 case "3" :
                     Console.WriteLine("Input what you would like to add");
-                    
+                    input = Console.ReadLine();
+                    switch (input)
+                    {
+                        case "Laptop":
+                            Console.WriteLine("Input Graphics Card model");
+                            string? input2 = Console.ReadLine();
+                            Console.WriteLine("Input battery life(hours in Integer)");
+                            int input5 = Console.Read();
+                            Laptop lap = new Laptop(input2, input5);
+                            AddEquipment(lap);
+                            Console.WriteLine("Successfully added");
+                            break;
+                        case "MarkerSet":
+                            Console.WriteLine("Input amount of markers");
+                            int input6 = Console.Read();
+                            Console.WriteLine("Input color of set");
+                            string? input9 = Console.ReadLine();
+                            MarkerSet mark = new MarkerSet(input6, input9);
+                            AddEquipment(mark);
+                            Console.WriteLine("Successfully added");
+                            break;
+                        
+                        case "Projector":
+                            Console.WriteLine("Input model");
+                            string? input0 = Console.ReadLine();
+                            Console.WriteLine("Input battery life(hours in Integer)");
+                            int input11 = Console.Read();
+                            Projector proj = new Projector(input0, input11);
+                            AddEquipment(proj);
+                            Console.WriteLine("Successfully added");
+                            break;
+                        default:
+                            Console.WriteLine("Invalid input equipment");
+                            break;
+                    }
+                    break;
+                case "4":
+                    Console.WriteLine("Quitting...");
                     break;
                 default:
                     Console.WriteLine("Something went wrong");
@@ -109,18 +186,21 @@ public class Service
         } while (input != "quit");
     }
     
-    public bool findUser(string? id)
+    public User? findUser(string? id)
     {
         foreach (var person in Users)
         {
             string Id = person.GetId();
             if (Id == id)
             {
-                return true;
+                return person.GetUser(id);
             }
         }
-        return false;
+        return null;
     }
+    
+    
+    
     public void Return(User user, Equipment eq)
     {
         if (!eq.Availability)
@@ -132,6 +212,19 @@ public class Service
         {
             Console.WriteLine("You can't return something that's already there.");
         }
+    }
+
+    public Borrow? findBorrow(int id)
+    {
+        foreach (var VARIABLE in Borrowed)
+        {
+            if (VARIABLE.Id == id)
+            {
+                return VARIABLE;
+            }
+            
+        }
+        return null;
     }
     public int Take(Equipment equipment, User user)
     {
@@ -146,22 +239,25 @@ public class Service
         }
     }
 
-    public bool ValidIn(string? name)
+    public Equipment? ValidIn(string? name)
     {
-        foreach (var VARIABLE in Equipment)
+        foreach (var VARIABLE in Equipment.Keys)
         {
             if (VARIABLE.Name == name && VARIABLE.Availability)
             {
-                return true;
+                return VARIABLE;
             }
             
         }
-        return false;
+        return null;
     }
+    
+    
+    
 
     public Equipment? FindEquipment(string id)
     {
-        foreach (var VARIABLE in Equipment)
+        foreach (var VARIABLE in Equipment.Keys)
         {
             if (VARIABLE.Name == id)
             {

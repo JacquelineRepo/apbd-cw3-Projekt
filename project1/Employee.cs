@@ -5,9 +5,10 @@ public class Employee : User
 {
     public string empNum { get; set; }
     
-    public Employee(string name) : base(name)
+    public Employee(string name, string? eId) : base(name)
     {
         MaxBorrow = 5;
+        empNum = eId;
     }
 
     public override string GetId()

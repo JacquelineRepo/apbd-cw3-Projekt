@@ -5,9 +5,10 @@ public class Student : User
     
     public string Snum  { get; set; }
     
-    public Student(string name) : base(name)
+    public Student(string name, string? snum) : base(name)
     {
         MaxBorrow = 2;
+        Snum = snum;
     }
 
     public override string GetId()

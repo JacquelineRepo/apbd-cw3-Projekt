@@ -13,10 +13,9 @@ public class Equipment
 
     public bool Availability { get; set; }
 
-    public Equipment(string name)
+    public Equipment()
     {
         Id++;
-        Name = name;
         Availability = true;
     }
     public void ChangeStatus()
