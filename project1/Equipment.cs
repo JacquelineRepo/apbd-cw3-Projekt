@@ -1,6 +1,6 @@
 ﻿namespace project1;
 
-public class Equipment
+public abstract class Equipment
 {
     public static int Id{
         get;
@@ -22,9 +22,6 @@ public class Equipment
     {
         Availability = !Availability;
     }
-    
-    
-    
 
     public int IdAccess()
     {
