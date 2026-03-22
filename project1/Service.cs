@@ -29,6 +29,8 @@ public class Service
     public Service()
     {}
     
+    public int Parse { get; set;}
+    
     public void AddUser(User user){
         Users.Add(user);
     }
@@ -48,15 +50,8 @@ public class Service
         }
     }
 
-    public void Run()
+    public void Run(int input)
     {
-        int input;
-        Console.WriteLine("What would you like to do?");
-        Console.WriteLine("1. Borrow, 2. Return, 3. Add equipment to list, 4. List all Equipment, 5. List available," +
-                          "6. Change status of equipment, 7. Display a users loans, -1. Exit,");
-        do
-        {
-            input = Console.Read();
             string? inputEq;
             switch (input)
             {
@@ -77,7 +72,6 @@ public class Service
                             Take(FindEquipment(inputEq), findUser(input));
                             Borrowed.Add(bor);
                             Console.Write("Successfully borrowed.");
-                            
                         }
                         else
                         {
@@ -115,7 +109,6 @@ public class Service
                             
                             Console.WriteLine("Couldn't find item.");
                         }
-                        
                     }
                     break;
                 case 2 :
@@ -131,7 +124,6 @@ public class Service
                         Console.WriteLine(findBorrow(ValidIn(input3).IdAccess()).Costs);
                         Console.WriteLine("Successfully returned.");
                     }
-                    
                     break;
                 case  3:
                     Console.WriteLine("Input what you would like to add");
@@ -200,7 +192,7 @@ public class Service
                     break;
             }
 
-        } while (input != -1);
+        
     }
     
     public User? findUser(int id)
