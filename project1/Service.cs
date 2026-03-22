@@ -281,7 +281,9 @@ public class Service
     {
         foreach (var v in Equipment)
         {
-            Console.WriteLine(v.Name + " " + v.Availability + "\n");
+            Console.WriteLine(v.Name);
+            Console.WriteLine(v.Availability + "\n");
+            
         }
     }
 

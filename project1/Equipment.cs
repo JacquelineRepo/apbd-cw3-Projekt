@@ -17,6 +17,7 @@ public abstract class Equipment
     {
         Id++;
         Availability = true;
+        Name = GetType().ToString().Split('.').Last();
     }
     public void ChangeStatus()
     {
