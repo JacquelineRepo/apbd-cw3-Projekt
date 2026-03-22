@@ -30,7 +30,7 @@ public class Service
         {
             case 1:
                 Console.WriteLine("Please enter your Id");
-                input = Console.Read();
+                input = Convert.ToInt32(Console.ReadLine());
                 if (FindUser(input)!.GetId() != 0 && !FindUser(input)!.MaxBorrowed())
                 {
                     Console.WriteLine("Displaying list");
@@ -97,7 +97,7 @@ public class Service
                 Console.WriteLine("Input what you would like to return");
                 var input3 = Console.ReadLine();
                 Console.WriteLine("Please input your Id or Snum");
-                var input4 = Console.Read();
+                var input4 = Convert.ToInt32(Console.ReadLine());
                 var validEq = ValidIn(input3);
                 var validUser = FindUser(input4);
                 if (validEq != null && validUser != null)
@@ -123,7 +123,7 @@ public class Service
                         var input2 = Console.ReadLine();
 
                         Console.WriteLine("Input battery life(hours in Integer)");
-                        var input5 = Console.Read();
+                        var input5 = Convert.ToInt32(Console.ReadLine());
 
                         var lap = new Laptop(input2, input5);
                         AddEquipment(lap);
@@ -132,7 +132,7 @@ public class Service
                         break;
                     case "MarkerSet":
                         Console.WriteLine("Input amount of markers");
-                        var input6 = Console.Read();
+                        var input6 = Convert.ToInt32(Console.ReadLine());
 
                         Console.WriteLine("Input color of set");
                         var input9 = Console.ReadLine();
@@ -148,7 +148,7 @@ public class Service
                         var input0 = Console.ReadLine();
 
                         Console.WriteLine("Input battery life(hours in Integer)");
-                        var input11 = Console.Read();
+                        var input11 = Convert.ToInt32(Console.ReadLine());
 
                         var proj = new Projector(input0, input11);
                         AddEquipment(proj);
@@ -172,7 +172,7 @@ public class Service
                 inputEq = Console.ReadLine();
 
                 Console.WriteLine("Enter Id of equipment");
-                input = Console.Read();
+                input = Convert.ToInt32(Console.ReadLine());
 
                 var equipment = FindEquipment(inputEq!);
                 var equipId = equipment!.IdAccess();
@@ -185,7 +185,7 @@ public class Service
                 break;
             case 7:
                 Console.WriteLine("Enter Id of user to check active loans");
-                input = Console.Read();
+                input = Convert.ToInt32(Console.ReadLine());
 
                 DisplayUserBorrows(input);
                 break;
