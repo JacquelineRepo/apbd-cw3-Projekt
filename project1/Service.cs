@@ -7,21 +7,7 @@ public class Service
     private List<Equipment> Equipment { get; } = new();
 
     private List<Borrow> Borrowed { get; } = new();
-
-    private void AddEquipment(Equipment equipment){
-        Equipment.Add(equipment);
-    }
-
-    private void ListAvailableEquipment()
-    {
-        foreach (var equipment in Equipment)
-        {
-            if (equipment.Availability)
-            {
-                Console.WriteLine(equipment.Name + "\n");
-            }
-        }
-    }
+    
 
     public void Run(int input)
     {
@@ -259,6 +245,40 @@ public class Service
             Console.WriteLine("Deference of Null, Exiting..");
         }
     }
+    
+    private void AddEquipment(Equipment equipment){
+        Equipment.Add(equipment);
+    }
+    private Equipment? FindEquipment(string id)
+    {
+        foreach (var variable in Equipment)
+        {
+            if (variable.Name == id)
+            {
+                return variable;
+            }
+            
+        }
+        return null;
+    }
+    private void ListAll()
+    {
+        foreach (var v in Equipment)
+        {
+            Console.WriteLine(v.Name);
+            Console.WriteLine(v.Availability + "\n");
+        }
+    }
+    private void ListAvailableEquipment()
+    {
+        foreach (var equipment in Equipment)
+        {
+            if (equipment.Availability)
+            {
+                Console.WriteLine(equipment.Name + "\n");
+            }
+        }
+    }
 
     private User? FindUser(int id1)
     {
@@ -273,32 +293,19 @@ public class Service
         return null;
     }
     
-    private void ShowExpired()
+    private Borrow? FindBorrow(int id)
     {
-        Console.WriteLine("Showing expired loans\n");
         foreach (var variable in Borrowed)
         {
-            if (variable.RetInTime == false)
+            if (variable.Id == id)
             {
-                Console.WriteLine(variable.Eq.Name + "\n");
+                return variable;
             }
             
         }
+        return null;
     }
-
-    private int ListAvailable()
-    {
-        var count = 0;
-        foreach (var equipment in Equipment)
-        {
-            if (equipment.Availability)
-            {
-                count++;
-            }
-        }
-        return count;
-    }
-
+    
     private void DisplayAllBorrows()
     {
         var count = 0;
@@ -318,7 +325,6 @@ public class Service
         Console.WriteLine("Amount of returned: " + count + "/"+Borrowed.Count);
 
     }
-
     private void DisplayUserBorrows(int id)
     {
         foreach (var variable in Borrowed)
@@ -329,7 +335,18 @@ public class Service
             }
         }
     }
-    
+    private void ShowExpired()
+    {
+        Console.WriteLine("Showing expired loans\n");
+        foreach (var variable in Borrowed)
+        {
+            if (variable.RetInTime == false)
+            {
+                Console.WriteLine(variable.Eq.Name + "\n");
+            }
+            
+        }
+    }
     private void Return(User user, Equipment eq)
     {
         if (!eq.Availability)
@@ -342,28 +359,7 @@ public class Service
             Console.WriteLine("You can't return something that's already there.\n");
         }
     }
-
-    private void ListAll()
-    {
-        foreach (var v in Equipment)
-        {
-            Console.WriteLine(v.Name);
-            Console.WriteLine(v.Availability + "\n");
-        }
-    }
-
-    private Borrow? FindBorrow(int id)
-    {
-        foreach (var variable in Borrowed)
-        {
-            if (variable.Id == id)
-            {
-                return variable;
-            }
-            
-        }
-        return null;
-    }
+    
     private void Take(Equipment equipment, User user)
     {
         if (equipment.Availability && !user.MaxBorrowed())
@@ -381,18 +377,6 @@ public class Service
             {
                 return variable;
             }
-        }
-        return null;
-    }
-    private Equipment? FindEquipment(string id)
-    {
-        foreach (var variable in Equipment)
-        {
-            if (variable.Name == id)
-            {
-                return variable;
-            }
-            
         }
         return null;
     }
