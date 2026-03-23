@@ -285,12 +285,26 @@ public class Service
             
         }
     }
+
+    private int ListAvailable()
+    {
+        var count = 0;
+        foreach (var equipment in Equipment)
+        {
+            if (equipment.Availability)
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+
     private void DisplayAllBorrows()
     {
         var count = 0;
         foreach (var variable in Borrowed)
         {
-            if (variable.ReturnDate == DateTime.UtcNow)
+            if (variable.ReturnDate != DateTime.UnixEpoch)
             {
                 Console.WriteLine(variable.Eq.Name + " Borrowed " + variable.BorrowDate + "Yet to be returned\n");
                 
@@ -335,7 +349,6 @@ public class Service
         {
             Console.WriteLine(v.Name);
             Console.WriteLine(v.Availability + "\n");
-            
         }
     }
 

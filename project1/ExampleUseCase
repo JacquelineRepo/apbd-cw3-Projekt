@@ -1,0 +1,206 @@
+What would you like to do?
+
+1. Borrow, 2. Return, 3. Add equipment to list, 4. List all Equipment, 5. List available,6. Change status of equipment, 7. Display a users loans, 8. Display past due loans, 9. Register, 10. Generate report, -1. Exit,
+
+3
+Input what you would like to add
+
+Laptop 
+Input Graphics Card model
+
+RTX 4050
+Input battery life(hours in Integer)
+
+30
+Successfully added
+
+What would you like to do?
+
+1. Borrow, 2. Return, 3. Add equipment to list, 4. List all Equipment, 5. List available,6. Change status of equipment, 7. Display a users loans, 8. Display past due loans, 9. Register, 10. Generate report, -1. Exit,
+
+3
+Input what you would like to add
+
+Projector
+Input model
+
+P260F
+Input brightness
+
+4600
+Successfully added
+
+What would you like to do?
+
+1. Borrow, 2. Return, 3. Add equipment to list, 4. List all Equipment, 5. List available,6. Change status of equipment, 7. Display a users loans, 8. Display past due loans, 9. Register, 10. Generate report, -1. Exit,
+
+3
+Input what you would like to add
+
+MarkerSet
+Input amount of markers
+
+25
+Input color of set
+
+Black
+Successfully added
+
+What would you like to do?
+
+1. Borrow, 2. Return, 3. Add equipment to list, 4. List all Equipment, 5. List available,6. Change status of equipment, 7. Display a users loans, 8. Display past due loans, 9. Register, 10. Generate report, -1. Exit,
+
+9
+Enter name and surname
+John Havenmercy
+Student or employee? S/E
+
+E
+Here is your ID: 0
+
+What would you like to do?
+
+1. Borrow, 2. Return, 3. Add equipment to list, 4. List all Equipment, 5. List available,6. Change status of equipment, 7. Display a users loans, 8. Display past due loans, 9. Register, 10. Generate report, -1. Exit,
+
+9
+Enter name and surname
+Jessica Pleasework
+Student or employee? S/E
+
+S
+Here is your ID: 1
+
+What would you like to do?
+
+1. Borrow, 2. Return, 3. Add equipment to list, 4. List all Equipment, 5. List available,6. Change status of equipment, 7. Display a users loans, 8. Display past due loans, 9. Register, 10. Generate report, -1. Exit,
+
+9
+Enter name and surname
+Jean Employee.
+Student or employee? S/E
+
+E
+Here is your ID: 2
+
+What would you like to do?
+
+1. Borrow, 2. Return, 3. Add equipment to list, 4. List all Equipment, 5. List available,6. Change status of equipment, 7. Display a users loans, 8. Display past due loans, 9. Register, 10. Generate report, -1. Exit,
+
+1
+Please enter your Id
+
+2
+Displaying list
+
+Laptop
+
+Projector
+
+MarkerSet
+
+Input what you would like to borrow
+
+Projector
+For how many days?
+
+2
+Date of Borrow?(YY MM DD)
+2026 3 21
+Successfully borrowed.
+What would you like to do?
+
+1. Borrow, 2. Return, 3. Add equipment to list, 4. List all Equipment, 5. List available,6. Change status of equipment, 7. Display a users loans, 8. Display past due loans, 9. Register, 10. Generate report, -1. Exit,
+
+3
+Input what you would like to add
+
+TheBug   
+Invalid input equipment
+
+What would you like to do?
+
+1. Borrow, 2. Return, 3. Add equipment to list, 4. List all Equipment, 5. List available,6. Change status of equipment, 7. Display a users loans, 8. Display past due loans, 9. Register, 10. Generate report, -1. Exit,
+
+2
+Please input your Id or Snum
+
+2
+Input what you would like to return
+
+Projector
+Here are the costs: 
+1
+
+Successfully returned.
+
+What would you like to do?
+
+1. Borrow, 2. Return, 3. Add equipment to list, 4. List all Equipment, 5. List available,6. Change status of equipment, 7. Display a users loans, 8. Display past due loans, 9. Register, 10. Generate report, -1. Exit,
+
+1
+Please enter your Id
+
+1
+Displaying list
+
+Laptop
+
+Projector
+
+MarkerSet
+
+Input what you would like to borrow
+
+Laptop
+For how many days?
+
+2
+Date of Borrow?(YY MM DD)
+2026 3 1
+Successfully borrowed.
+What would you like to do?
+
+1. Borrow, 2. Return, 3. Add equipment to list, 4. List all Equipment, 5. List available,6. Change status of equipment, 7. Display a users loans, 8. Display past due loans, 9. Register, 10. Generate report, -1. Exit,
+
+2
+Please input your Id or Snum
+
+1
+Input what you would like to return
+
+Laptop
+Here are the costs: 
+5.400000000000002
+
+Successfully returned.
+
+What would you like to do?
+
+1. Borrow, 2. Return, 3. Add equipment to list, 4. List all Equipment, 5. List available,6. Change status of equipment, 7. Display a users loans, 8. Display past due loans, 9. Register, 10. Generate report, -1. Exit,
+
+10
+Generating raport
+
+Projector Borrowed 21/03/2026 00:00:00 Returned 23/03/2026 17:32:28
+
+Laptop Borrowed 01/03/2026 00:00:00 Returned 23/03/2026 17:32:54
+
+Amount of returned: 2/2
+Laptop
+True
+
+Projector
+True
+
+MarkerSet
+True
+
+What would you like to do?
+
+1. Borrow, 2. Return, 3. Add equipment to list, 4. List all Equipment, 5. List available,6. Change status of equipment, 7. Display a users loans, 8. Display past due loans, 9. Register, 10. Generate report, -1. Exit,
+
+-1
+Quitting...
+
+
+Process finished with exit code 0.
