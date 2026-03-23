@@ -39,7 +39,7 @@ public class Service
                         ListAvailableEquipment();
                         Console.WriteLine("Input what you would like to borrow\n");
                         inputEq = Console.ReadLine();
-                        if (ValidIn(inputEq) != null)
+                        if (ValidIn(inputEq).Availability)
                         {
                             Console.WriteLine("For how many days?\n");
                             var days = Convert.ToInt32(Console.ReadLine());
@@ -113,13 +113,13 @@ public class Service
 
                     break;
                 case 2:
-                    Console.WriteLine("Input what you would like to return\n");
-                    var input3 = Console.ReadLine();
                     Console.WriteLine("Please input your Id or Snum\n");
                     var input4 = Convert.ToInt32(Console.ReadLine());
-                    var validEq = ValidIn(input3);
+                    Console.WriteLine("Input what you would like to return\n");
+                    var input3 = Console.ReadLine();
+                    var validEq = ValidIn(input3).Availability;
                     var validUser = FindUser(input4);
-                    if (validEq != null && validUser != null)
+                    if (validEq == false && validUser != null)
                     {
                         var eq = FindEquipment(input3!);
                         Return(validUser, eq!);
@@ -364,11 +364,10 @@ public class Service
     {
         foreach (var variable in Equipment)
         {
-            if (variable.Name == name && variable.Availability)
+            if (variable.Name == name)
             {
                 return variable;
             }
-            
         }
         return null;
     }
