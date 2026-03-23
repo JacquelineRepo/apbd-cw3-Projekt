@@ -18,3 +18,6 @@ Logika aplikacji jest zawarta w obiektach których używa, przechowywując ważn
 w każdej instancji, zamaiast otwarcie w głównej pętli, zachowując hermatyzacje i 
 korzystanie z konwencji obiektowego programowania. 
 
+Ponieważ moja aplikacja działa w pełni poprzez konsole, nie jestem w stanie przygotować scenariuszu w metodzie main,
+więc zamiast tego załącze transkrypt scenariuszu jako dodatkowy plik tekstowy w projekcie.
+
