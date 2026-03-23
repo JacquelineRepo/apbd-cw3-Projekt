@@ -44,8 +44,8 @@ public class Service
                             Console.WriteLine("For how many days?\n");
                             var days = Convert.ToInt32(Console.ReadLine());
                             var eq = FindEquipment(inputEq!);
-                            var id = eq!.IdAccess();
                             var user = FindUser(input);
+                            var id = user.Id;
                             Console.WriteLine("Date of Borrow?(YY MM DD)");
                             var date = Console.ReadLine();
                             string?[] val = date!.Split();
@@ -124,10 +124,10 @@ public class Service
                         var eq = FindEquipment(input3!);
                         Return(validUser, eq!);
                         var validEqId = eq!.IdAccess();
-                        FindBorrow(validEqId)!.Returned();
-
+                        var bor = FindBorrow(validUser.Id);
+                        bor.Returned();
                         Console.WriteLine("Here are the costs: ");
-                        Console.WriteLine(FindBorrow(validEqId)!.Costs + "\n");
+                        Console.WriteLine(bor.Costs + "\n");
                         Console.WriteLine("Successfully returned.\n");
                     }
                     else

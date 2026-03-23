@@ -11,22 +11,20 @@ public class Borrow(int id, double bt, Equipment eq, DateTime borr)
     private double BorrowedTime{get;set;} = bt;
     public DateTime ReturnDate{get; private set;} = DateTime.UnixEpoch;
 
-    public double Costs{get; private set;}
+    public double Costs{get; private set;} = bt / 2;
 
 
     public void Returned()
     {
-        var daysGone = ReturnDate.Subtract(BorrowDate).Days;
         ReturnDate = DateTime.Now;
-        Costs = BorrowedTime / 4.0;
-        if (daysGone > 25)
+        var daysGone = ReturnDate.Subtract(BorrowDate).Days;
+        if (daysGone > BorrowedTime)
         {
             RetInTime = false;
-            daysGone -= 25;
             while (daysGone > 0)
             {
-                Costs += 5;
-                daysGone -= 7;
+                Costs += 0.2;
+                daysGone -=1;
             }
         }
     }
