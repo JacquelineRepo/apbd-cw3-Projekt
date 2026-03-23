@@ -216,7 +216,11 @@ public class Service
                         Console.WriteLine("Something went wrong\n");
                         break;
                 }
-
+                break;
+            case 10:
+                Console.WriteLine("Generating raport\n");
+                DisplayAllBorrows();
+                
                 break;
             case -1:
                 Console.WriteLine("Quitting...\n");
@@ -251,6 +255,25 @@ public class Service
             }
             
         }
+    }
+    private void DisplayAllBorrows()
+    {
+        var count = 0;
+        foreach (var variable in Borrowed)
+        {
+            if (variable.ReturnDate == DateTime.UtcNow)
+            {
+                Console.WriteLine(variable.Eq.Name + " Borrowed " + variable.BorrowDate + "Yet to be returned\n");
+                
+            }
+            else
+            {
+                count++;
+                Console.WriteLine(variable.Eq.Name + " Borrowed " + variable.BorrowDate + " Returned " + variable.ReturnDate+"\n");
+            }
+        }
+        Console.WriteLine("Amount of returned: " + count + "/"+Borrowed.Count);
+
     }
 
     private void DisplayUserBorrows(int id)
