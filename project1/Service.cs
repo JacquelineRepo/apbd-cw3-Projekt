@@ -130,6 +130,10 @@ public class Service
                         Console.WriteLine(FindBorrow(validEqId)!.Costs + "\n");
                         Console.WriteLine("Successfully returned.\n");
                     }
+                    else
+                    {
+                        Console.WriteLine("Couldn't find user.");
+                    }
 
                     break;
                 case 3:
