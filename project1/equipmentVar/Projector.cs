@@ -3,5 +3,5 @@
 public class Projector(string? model, int range) : Equipment
 {
     public string? Model{ get; set; } = model;
-    public int Range{ get; set; } = range;
+    public int Brightness{ get; set; } = range;
 }

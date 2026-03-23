@@ -25,210 +25,228 @@ public class Service
 
     public void Run(int input)
     {
-        string? inputEq;
-        switch (input)
+        try
         {
-            case 1:
-                Console.WriteLine("Please enter your Id\n");
-                input = Convert.ToInt32(Console.ReadLine());
-                if (FindUser(input)!.GetId() != 0 && !FindUser(input)!.MaxBorrowed())
-                {
-                    Console.WriteLine("Displaying list\n");
-                    ListAvailableEquipment();
-                    Console.WriteLine("Input what you would like to borrow\n");
-                    inputEq = Console.ReadLine();
-                    if (ValidIn(inputEq) != null)
+            string? inputEq;
+            switch (input)
+            {
+                case 1:
+                    Console.WriteLine("Please enter your Id\n");
+                    input = Convert.ToInt32(Console.ReadLine());
+                    if (FindUser(input)!.GetId() != 0 && !FindUser(input)!.MaxBorrowed())
                     {
-                        Console.WriteLine("For how many days?\n");
-                        var days = Console.Read();
-                        var eq = FindEquipment(inputEq!);
-                        var id = eq!.IdAccess();
-                        var user = FindUser(input);
+                        Console.WriteLine("Displaying list\n");
+                        ListAvailableEquipment();
+                        Console.WriteLine("Input what you would like to borrow\n");
+                        inputEq = Console.ReadLine();
+                        if (ValidIn(inputEq) != null)
+                        {
+                            Console.WriteLine("For how many days?\n");
+                            var days = Convert.ToInt32(Console.ReadLine());
+                            var eq = FindEquipment(inputEq!);
+                            var id = eq!.IdAccess();
+                            var user = FindUser(input);
+                            Console.WriteLine("Date of Borrow?(YY MM DD)");
+                            var date = Console.ReadLine();
+                            string?[] val = date.Split();
 
-                        var bor = new Borrow(id, days, eq);
+                            var bor = new Borrow(id, days, eq,
+                                new DateTime(Convert.ToInt32(val[0]), Convert.ToInt32(val[1]),
+                                    Convert.ToInt32(val[2])));
 
-                        Take(eq, user!);
-                        Borrowed.Add(bor);
+                            Take(eq, user!);
+                            Borrowed.Add(bor);
 
-                        Console.Write("Successfully borrowed.\n");
+                            Console.Write("Successfully borrowed.\n");
+                        }
+                        else
+                        {
+                            Console.Write(
+                                "Couldn't find user, register? Y/N (An account is needed to borrow equipment.)\n");
+                            var input2 = Console.ReadLine();
+                            switch (input2)
+                            {
+                                case "Y":
+                                    Console.Write("Enter name and surname\n");
+                                    var name1 = Console.ReadLine();
+                                    var nameSurname1 = name1!.Split();
+
+                                    Console.WriteLine("Student or employee? S/E\n");
+                                    var userType1 = Console.ReadLine();
+                                    switch (userType1)
+                                    {
+                                        case "S":
+                                            var stud = new Student(nameSurname1[0], nameSurname1[1]);
+                                            Users.Add(stud);
+                                            Console.WriteLine("Here is your ID: " + stud.GetId() + "\n");
+                                            break;
+                                        case "E":
+                                            var e = new Employee(nameSurname1[0], nameSurname1[1]);
+                                            Users.Add(e);
+                                            Console.WriteLine("Here is your ID: " + e.GetId() + "\n");
+
+                                            break;
+                                        default:
+                                            Console.WriteLine("Something went wrong\n");
+                                            break;
+                                    }
+
+                                    break;
+                                case "N":
+                                    Console.WriteLine("Cannot borrow without an account, exiting.\n");
+                                    break;
+                            }
+
+                            Console.WriteLine("Couldn't find item.\n");
+                        }
                     }
                     else
                     {
-                        Console.Write("Couldn't find user, register? Y/N (An account is needed to borrow equipment.)\n");
-                        var input2 = Console.ReadLine();
-                        switch (input2)
-                        {
-                            case "Y":
-                                Console.Write("Enter name and surname\n");
-                                var name1 = Console.ReadLine();
-                                var nameSurname1 = name1!.Split();
-
-                                Console.WriteLine("Student or employee? S/E\n");
-                                var userType1 = Console.ReadLine();
-                                switch (userType1)
-                                {
-                                    case "S":
-                                        var stud = new Student(nameSurname1[0], nameSurname1[1]);
-                                        Users.Add(stud);
-                                        Console.WriteLine("Here is your ID: " + stud.GetId()+ "\n");
-                                        break;
-                                    case "E":
-                                        var e = new Employee(nameSurname1[0], nameSurname1[1]);
-                                        Users.Add(e);
-                                        Console.WriteLine("Here is your ID: " + e.GetId() + "\n");
-                                        
-                                        break;
-                                    default:
-                                        Console.WriteLine("Something went wrong\n");
-                                        break;
-                                }
-
-                                break;
-                            case "N":
-                                Console.WriteLine("Cannot borrow without an account, exiting.\n");
-                                break;
-                        }
-
-                        Console.WriteLine("Couldn't find item.\n");
+                        Console.WriteLine("Max amount has already been borrowed.");
                     }
-                }
 
-                break;
-            case 2:
-                Console.WriteLine("Input what you would like to return\n");
-                var input3 = Console.ReadLine();
-                Console.WriteLine("Please input your Id or Snum\n");
-                var input4 = Convert.ToInt32(Console.ReadLine());
-                var validEq = ValidIn(input3);
-                var validUser = FindUser(input4);
-                if (validEq != null && validUser != null)
-                {
-                    var eq = FindEquipment(input3!);
-                    Return(validUser, eq!);
-                    var validEqId = eq!.IdAccess();
-                    FindBorrow(validEqId)!.Returned();
+                    break;
+                case 2:
+                    Console.WriteLine("Input what you would like to return\n");
+                    var input3 = Console.ReadLine();
+                    Console.WriteLine("Please input your Id or Snum\n");
+                    var input4 = Convert.ToInt32(Console.ReadLine());
+                    var validEq = ValidIn(input3);
+                    var validUser = FindUser(input4);
+                    if (validEq != null && validUser != null)
+                    {
+                        var eq = FindEquipment(input3!);
+                        Return(validUser, eq!);
+                        var validEqId = eq!.IdAccess();
+                        FindBorrow(validEqId)!.Returned();
 
-                    Console.WriteLine("Here are the costs: ");
-                    Console.WriteLine(FindBorrow(validEqId)!.Costs + "\n");
-                    Console.WriteLine("Successfully returned.\n");
-                }
+                        Console.WriteLine("Here are the costs: ");
+                        Console.WriteLine(FindBorrow(validEqId)!.Costs + "\n");
+                        Console.WriteLine("Successfully returned.\n");
+                    }
 
-                break;
-            case 3:
-                Console.WriteLine("Input what you would like to add\n");
-                inputEq = Console.ReadLine();
-                switch (inputEq)
-                {
-                    case "Laptop":
-                        Console.WriteLine("Input Graphics Card model\n");
-                        var input2 = Console.ReadLine();
+                    break;
+                case 3:
+                    Console.WriteLine("Input what you would like to add\n");
+                    inputEq = Console.ReadLine();
+                    switch (inputEq)
+                    {
+                        case "Laptop":
+                            Console.WriteLine("Input Graphics Card model\n");
+                            var input2 = Console.ReadLine();
 
-                        Console.WriteLine("Input battery life(hours in Integer)\n");
-                        var input5 = Convert.ToInt32(Console.ReadLine());
+                            Console.WriteLine("Input battery life(hours in Integer)\n");
+                            var input5 = Convert.ToInt32(Console.ReadLine());
 
-                        var lap = new Laptop(input2, input5);
-                        AddEquipment(lap);
+                            var lap = new Laptop(input2, input5);
+                            AddEquipment(lap);
 
-                        Console.WriteLine("Successfully added\n");
-                        break;
-                    case "MarkerSet":
-                        Console.WriteLine("Input amount of markers\n");
-                        var input6 = Convert.ToInt32(Console.ReadLine());
+                            Console.WriteLine("Successfully added\n");
+                            break;
+                        case "MarkerSet":
+                            Console.WriteLine("Input amount of markers\n");
+                            var input6 = Convert.ToInt32(Console.ReadLine());
 
-                        Console.WriteLine("Input color of set\n");
-                        var input9 = Console.ReadLine();
+                            Console.WriteLine("Input color of set\n");
+                            var input9 = Console.ReadLine();
 
-                        var mark = new MarkerSet(input6, input9);
-                        AddEquipment(mark);
+                            var mark = new MarkerSet(input6, input9);
+                            AddEquipment(mark);
 
-                        Console.WriteLine("Successfully added\n");
-                        break;
+                            Console.WriteLine("Successfully added\n");
+                            break;
 
-                    case "Projector":
-                        Console.WriteLine("Input model\n");
-                        var input0 = Console.ReadLine();
+                        case "Projector":
+                            Console.WriteLine("Input model\n");
+                            var input0 = Console.ReadLine();
 
-                        Console.WriteLine("Input battery life(hours in Integer)\n");
-                        var input11 = Convert.ToInt32(Console.ReadLine());
+                            Console.WriteLine("Input brightness\n");
+                            var input11 = Convert.ToInt32(Console.ReadLine());
 
-                        var proj = new Projector(input0, input11);
-                        AddEquipment(proj);
+                            var proj = new Projector(input0, input11);
+                            AddEquipment(proj);
 
-                        Console.WriteLine("Successfully added\n");
-                        break;
-                    default:
-                        Console.WriteLine("Invalid input equipment\n");
-                        break;
-                }
+                            Console.WriteLine("Successfully added\n");
+                            break;
+                        default:
+                            Console.WriteLine("Invalid input equipment\n");
+                            break;
+                    }
 
-                break;
-            case 4:
-                ListAll();
-                break;
-            case 5:
-                ListAvailableEquipment();
-                break;
-            case 6:
-                Console.WriteLine("Enter Name of equipment to change status\n");
-                inputEq = Console.ReadLine();
+                    break;
+                case 4:
+                    ListAll();
+                    break;
+                case 5:
+                    ListAvailableEquipment();
+                    break;
+                case 6:
+                    Console.WriteLine("Enter Name of equipment to change status\n");
+                    inputEq = Console.ReadLine();
 
-                Console.WriteLine("Enter Id of equipment\n");
-                input = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("Enter Id of equipment\n");
+                    input = Convert.ToInt32(Console.ReadLine());
 
-                var equipment = FindEquipment(inputEq!);
-                var equipId = equipment!.IdAccess();
+                    var equipment = FindEquipment(inputEq!);
+                    var equipId = equipment!.IdAccess();
 
-                if (equipId == input)
-                {
-                    equipment.ChangeStatus();
-                }
+                    if (equipId == input)
+                    {
+                        equipment.ChangeStatus();
+                    }
 
-                break;
-            case 7:
-                Console.WriteLine("Enter Id of user to check active loans\n");
-                input = Convert.ToInt32(Console.ReadLine());
+                    break;
+                case 7:
+                    Console.WriteLine("Enter Id of user to check active loans\n");
+                    input = Convert.ToInt32(Console.ReadLine());
 
-                DisplayUserBorrows(input);
-                break;
-            case 8:
-                ShowExpired();
-                break;
-            case 9:
-                Console.Write("Enter name and surname\n");
-                var name2 = Console.ReadLine();
-                var nameSurname2 = name2!.Split();
+                    DisplayUserBorrows(input);
+                    break;
+                case 8:
+                    ShowExpired();
+                    break;
+                case 9:
+                    Console.Write("Enter name and surname\n");
+                    var name2 = Console.ReadLine();
+                    var nameSurname2 = name2!.Split();
 
-                Console.WriteLine("Student or employee? S/E\n");
-                var userType = Console.ReadLine();
-                switch (userType)
-                {
-                    case "S":
-                        var stud = new Student(nameSurname2[0], nameSurname2[1]);
-                        Users.Add(stud);
-                        Console.WriteLine("Here is your ID: " + stud.GetId() + "\n");
-                        break;
-                    case "E":
-                        var e = new Employee(nameSurname2[0], nameSurname2[1]);
-                        Users.Add(e);
-                        Console.WriteLine("Here is your ID: " + e.GetId() + "\n");
-                        break;
-                    default:
-                        Console.WriteLine("Unexpected input, quitting...\n");
-                        break;
-                }
-                break;
-            case 10:
-                Console.WriteLine("Generating raport\n");
-                DisplayAllBorrows();
-                ListAll();
-                
-                break;
-            case -1:
-                Console.WriteLine("Quitting...\n");
-                break;
-            default:
-                Console.WriteLine("Unexpected input, please try again\n");
-                break;
+                    Console.WriteLine("Student or employee? S/E\n");
+                    var userType = Console.ReadLine();
+                    switch (userType)
+                    {
+                        case "S":
+                            var stud = new Student(nameSurname2[0], nameSurname2[1]);
+                            Users.Add(stud);
+                            Console.WriteLine("Here is your ID: " + stud.GetId() + "\n");
+                            break;
+                        case "E":
+                            var e = new Employee(nameSurname2[0], nameSurname2[1]);
+                            Users.Add(e);
+                            Console.WriteLine("Here is your ID: " + e.GetId() + "\n");
+                            break;
+                        default:
+                            Console.WriteLine("Unexpected input, quitting...\n");
+                            break;
+                    }
+
+                    break;
+                case 10:
+                    Console.WriteLine("Generating raport\n");
+                    DisplayAllBorrows();
+                    ListAll();
+
+                    break;
+                case -1:
+                    Console.WriteLine("Quitting...\n");
+                    break;
+                default:
+                    Console.WriteLine("Unexpected input, please try again\n");
+                    break;
+            }
+        }
+        catch (NullReferenceException)
+        {
+            Console.WriteLine("Deference of Null, Exiting..");
         }
     }
 
