@@ -213,20 +213,21 @@ public class Service
                         Console.WriteLine("Here is your ID: " + e.GetId() + "\n");
                         break;
                     default:
-                        Console.WriteLine("Something went wrong\n");
+                        Console.WriteLine("Unexpected input, quitting...\n");
                         break;
                 }
                 break;
             case 10:
                 Console.WriteLine("Generating raport\n");
                 DisplayAllBorrows();
+                ListAll();
                 
                 break;
             case -1:
                 Console.WriteLine("Quitting...\n");
                 break;
             default:
-                Console.WriteLine("Something went wrong\n");
+                Console.WriteLine("Unexpected input, please try again\n");
                 break;
         }
     }
@@ -243,7 +244,7 @@ public class Service
         }
         return null;
     }
-
+    
     private void ShowExpired()
     {
         Console.WriteLine("Showing expired loans\n");
