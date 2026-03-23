@@ -13,7 +13,11 @@ public abstract class User
         get;
         set;
     }
-    public static int Id
+    
+    public static int Counter { get; set; }
+    
+    
+    public int Id
     {
         get;
         set;
@@ -33,7 +37,7 @@ public abstract class User
     public User(string name, string sur)
     {
         Account = new Dictionary<int, Equipment>();
-        Id++;
+        Id = Counter++;
         Name = name;
         Surname = sur;
     }
