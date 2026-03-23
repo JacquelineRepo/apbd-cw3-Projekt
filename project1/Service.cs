@@ -48,7 +48,7 @@ public class Service
                             var user = FindUser(input);
                             Console.WriteLine("Date of Borrow?(YY MM DD)");
                             var date = Console.ReadLine();
-                            string?[] val = date.Split();
+                            string?[] val = date!.Split();
 
                             var bor = new Borrow(id, days, eq,
                                 new DateTime(Convert.ToInt32(val[0]), Convert.ToInt32(val[1]),
