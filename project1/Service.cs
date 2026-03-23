@@ -33,7 +33,7 @@ public class Service
                 case 1:
                     Console.WriteLine("Please enter your Id\n");
                     input = Convert.ToInt32(Console.ReadLine());
-                    if (FindUser(input)!.GetId() != 0 && !FindUser(input)!.MaxBorrowed())
+                    if (FindUser(input) != null && !FindUser(input)!.MaxBorrowed())
                     {
                         Console.WriteLine("Displaying list\n");
                         ListAvailableEquipment();
@@ -61,48 +61,54 @@ public class Service
                         }
                         else
                         {
-                            Console.Write(
-                                "Couldn't find user, register? Y/N (An account is needed to borrow equipment.)\n");
-                            var input2 = Console.ReadLine();
-                            switch (input2)
-                            {
-                                case "Y":
-                                    Console.Write("Enter name and surname\n");
-                                    var name1 = Console.ReadLine();
-                                    var nameSurname1 = name1!.Split();
-
-                                    Console.WriteLine("Student or employee? S/E\n");
-                                    var userType1 = Console.ReadLine();
-                                    switch (userType1)
-                                    {
-                                        case "S":
-                                            var stud = new Student(nameSurname1[0], nameSurname1[1]);
-                                            Users.Add(stud);
-                                            Console.WriteLine("Here is your ID: " + stud.GetId() + "\n");
-                                            break;
-                                        case "E":
-                                            var e = new Employee(nameSurname1[0], nameSurname1[1]);
-                                            Users.Add(e);
-                                            Console.WriteLine("Here is your ID: " + e.GetId() + "\n");
-
-                                            break;
-                                        default:
-                                            Console.WriteLine("Something went wrong\n");
-                                            break;
-                                    }
-
-                                    break;
-                                case "N":
-                                    Console.WriteLine("Cannot borrow without an account, exiting.\n");
-                                    break;
-                            }
-
-                            Console.WriteLine("Couldn't find item.\n");
+                            Console.WriteLine("Couldn't find equipment of that name.");
                         }
+                    }
+                    else if (FindUser(input) == null)
+                    {
+                        Console.Write(
+                            "Couldn't find user, register? Y/N (An account is needed to borrow equipment.)\n");
+                        var input2 = Console.ReadLine();
+                        switch (input2)
+                        {
+                            case "Y":
+                                Console.Write("Enter name and surname\n");
+                                var name1 = Console.ReadLine();
+                                var nameSurname1 = name1!.Split();
+
+                                Console.WriteLine("Student or employee? S/E\n");
+                                var userType1 = Console.ReadLine();
+                                switch (userType1)
+                                {
+                                    case "S":
+                                        var stud = new Student(nameSurname1[0], nameSurname1[1]);
+                                        Users.Add(stud);
+                                        Console.WriteLine("Here is your ID: " + stud.GetId() + "\n");
+                                        break;
+                                    case "E":
+                                        var e = new Employee(nameSurname1[0], nameSurname1[1]);
+                                        Users.Add(e);
+                                        Console.WriteLine("Here is your ID: " + e.GetId() + "\n");
+
+                                        break;
+                                    default:
+                                        Console.WriteLine("Something went wrong\n");
+                                        break;
+                                }
+
+                                break;
+                            case "N":
+                                Console.WriteLine("Cannot borrow without an account, exiting.\n");
+                                break;
+                        }
+                    }
+                    else if(FindUser(input)!.MaxBorrowed())
+                    {
+                        Console.WriteLine("User already has max borrowed amount");
                     }
                     else
                     {
-                        Console.WriteLine("Max amount has already been borrowed.");
+                        Console.WriteLine("Unexpected error occured.");
                     }
 
                     break;
