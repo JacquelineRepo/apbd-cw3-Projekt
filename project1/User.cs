@@ -3,7 +3,7 @@ using Microsoft.VisualBasic.CompilerServices;
 
 namespace project1;
 
-public class User
+public abstract class User
 {
     public string? Surname{get;set;}
     
