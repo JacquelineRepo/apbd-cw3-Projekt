@@ -21,3 +21,14 @@ korzystanie z konwencji obiektowego programowania.
 Ponieważ moja aplikacja działa w pełni poprzez konsole, nie jestem w stanie przygotować scenariuszu w metodzie main,
 więc zamiast tego załącze transkrypt scenariuszu jako dodatkowy plik tekstowy w projekcie.
 
+Aplikacje wystarczy uruchomić i będzie oczekiwała wejścia w konsoli, gdzie użytkownik dostaje liste 
+dostępnych komend, i może używać systemu.
+
+
+
+
+
+
+
+
+
