@@ -2,7 +2,12 @@
 
 public abstract class Equipment
 {
-    public static int Id{
+    public static int Counter
+    {
+        get;
+        set;
+    }
+    public int Id{
         get;
         set;
     }
@@ -15,7 +20,7 @@ public abstract class Equipment
 
     public Equipment()
     {
-        Id++;
+        Id = Counter++;
         Availability = true;
         Name = GetType().ToString().Split('.').Last();
     }
